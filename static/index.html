@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Fingerprinting</title>
+    <!-- Pico CSS - minimal CSS framework -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <!-- Alpine.js - minimal reactive framework -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .results-table {
+            margin: 0 auto;
+            width: 100%;
+        }        
+    </style>
+</head>
+<body>
+    <main class="container" x-data="app()" x-init="fetchResults()">
+        <h1>CSE406: Website Fingerprinting</h1>
+        
+        <div class="button-group">
+            <button @click="collectLatencyData()" :disabled="isCollecting">Collect latency data</button>
+            <!--Implement Collect Trace button. It should call collectTraceData(). -->
+            <button @click="collectTraceData()" :disabled="isCollecting">Collect trace</button>
+            <!--Implement Download Traces button. It should call downloadTraces(). -->
+            <button @click="downloadTraces()" :disabled="isCollecting">Download traces</button>
+            <!--Implement Clear Results button. It should call clearResults(). -->
+            <button @click="clearResults()" :disabled="isCollecting">Clear all results</button>
+        </div>
+        
+        <div x-show="status" role="alert" x-text="status" 
+             :class="{'alert-success': !statusIsError, 'alert-error': statusIsError}"></div>
+        
+        <!-- Latency Results Table -->
+        <template x-if="latencyResults && !showingTraces">
+            <div class="results-container">
+                <h3>Latency Results</h3>
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>N</th>
+                            <th>Median Access Latency (ms)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-for="(time, n) in latencyResults" :key="n">
+                            <tr>
+                                <td x-text="n"></td>
+                                <td x-text="time.toFixed(2)"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>        
+        <!-- Heatmap gallery for all traces -->
+        
+        <template x-if="showingTraces">
+            <div>
+                <h2>Trace Heatmaps</h2>
+                <template x-if="heatmaps && heatmaps.length > 0">
+                    <template x-for="heatmap in heatmaps" :key="heatmap.url">
+                        <div style="margin-bottom: 10px;">
+                            <template x-if="heatmap && heatmap.url && typeof heatmap.url === 'string'">
+                                <div>
+                                    <img :src="heatmap.url" alt="Heatmap" style="max-width: 100%; max-height: 100px; display: block; object-fit: contain;">
+                                    <h6 x-text="`${heatmap.label || 'Uncalculated Trace'}`" style="margin: 0 0 10px 0;"></h6>
+                                </div>
+                            </template>
+                            <template x-if="!heatmap || !heatmap.url || typeof heatmap.url !== 'string'">
+                                <p>Failed to load heatmap.</p>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+                <template x-if="(!heatmaps || heatmaps.length === 0) && showingTraces">
+                    <p>No heatmaps available. Please collect trace data.</p>
+                </template>
+            </div>
+        </template>
+        
+    </main>
+
+    <script src="index.js"></script>
+    <script>
+        // Initialize app by fetching existing results when page loads
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('app', app());
+            Alpine.data('app', app);  // Associate 'app' with Alpine components (x-data)
+            window.Alpine.store('app').fetchResults();
+        });
+    </script>
+</body>
+</html>

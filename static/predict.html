@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Website Prediction</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        #result {
+            padding: 1rem;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <main class="container" x-data="predictApp()" x-init="startRealtimePrediction()">
+        <h1>CSE406: Real-Time Website Prediction</h1>
+        <div x-show="status" role="alert" x-text="status" :class="{'alert-success': !statusIsError, 'alert-error': statusIsError}"></div>
+        <div id="result">
+            <h3>Predicted Website</h3>
+            <p>Website: <span x-text="predictedWebsite" id="predictedWebsite">Not detected</span></p>
+            <p>Confidence: <span x-text="confidence + '%'" id="confidence">0.0%</span></p>
+        </div>
+    </main>
+    <script src="predict.js"></script>
+</body>
+</html>

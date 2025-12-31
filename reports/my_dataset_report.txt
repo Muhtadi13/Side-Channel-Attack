@@ -1,0 +1,26 @@
+Classification Report: SimpleCNN
+                                precision    recall  f1-score   support
+
+https://cse.buet.ac.bd/moodle/       0.95      0.98      0.96       207
+            https://google.com       0.94      0.91      0.92       209
+    https://www.prothomalo.com       0.94      0.93      0.93       208
+
+                      accuracy                           0.94       624
+                     macro avg       0.94      0.94      0.94       624
+                  weighted avg       0.94      0.94      0.94       624
+
+Classification Report: ComplexCNN
+                                precision    recall  f1-score   support
+
+https://cse.buet.ac.bd/moodle/       0.97      0.97      0.97       207
+            https://google.com       0.97      0.95      0.96       209
+    https://www.prothomalo.com       0.96      0.99      0.98       208
+
+                      accuracy                           0.97       624
+                     macro avg       0.97      0.97      0.97       624
+                  weighted avg       0.97      0.97      0.97       624
+
+
+Model Comparison:
+SimpleCNN: Best Accuracy = 0.9455
+ComplexCNN: Best Accuracy = 0.9679

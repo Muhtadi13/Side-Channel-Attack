@@ -1,0 +1,50 @@
+
+Classification Report: SimpleCNN
+                                precision    recall  f1-score   support
+
+https://cse.buet.ac.bd/moodle/       0.71      0.69      0.70      4700
+            https://google.com       0.69      0.69      0.69      4700
+    https://www.prothomalo.com       0.85      0.86      0.86      4701
+
+                      accuracy                           0.75     14101
+                     macro avg       0.75      0.75      0.75     14101
+                  weighted avg       0.75      0.75      0.75     14101
+
+
+Classification Report: ComplexCNN
+                                precision    recall  f1-score   support
+
+https://cse.buet.ac.bd/moodle/       0.78      0.76      0.77      4700
+            https://google.com       0.76      0.76      0.76      4700
+    https://www.prothomalo.com       0.87      0.88      0.88      4701
+
+                      accuracy                           0.80     14101
+                     macro avg       0.80      0.80      0.80     14101
+                  weighted avg       0.80      0.80      0.80     14101
+
+
+Classification Report: EnhancedResCNN
+                                precision    recall  f1-score   support
+
+https://cse.buet.ac.bd/moodle/       0.79      0.84      0.81      4700
+            https://google.com       0.82      0.76      0.79      4700
+    https://www.prothomalo.com       0.90      0.90      0.90      4701
+
+                      accuracy                           0.83     14101
+                     macro avg       0.84      0.83      0.83     14101
+                  weighted avg       0.84      0.83      0.83     14101
+
+
+
+Model Comparison:
+
+Accuracy:
+        SimpleCNN: 74.89%
+        ComplexCNN: 80.16%
+        EnhancedResCNN: 83.48%
+
+Best Single Model Accuracy: 83.48% (EnhancedResCNN.pth)
+
+
+Ensemble Accuracy: 89.70%
+Ensemble model saved as best model.
